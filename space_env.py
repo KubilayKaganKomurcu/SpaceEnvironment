@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
-# import plotly.graph_objects as go
+import plotly.graph_objects as go
 import csv
 
-
 Vx = []
-AceX = [233.45, 3.44, 3.45, 3.45, 3.45, 3.46, 3.46, 3.46, 3.46, 3.46, 3.47, 3.47, 3.47, 3.47, 3.48, 3.48, 3.48, 3.48,
-        3.49, 3.49, 3.49, 3.49, 3.50, 3.50, 3.50, 3.50, 3.50, 3.51, 3.51]
+AceX = [233.44, 233.45, 233.45, 233.45, 233.45, 233.46, 233.46, 233.46, 233.46, 233.46, 233.47, 233.47, 233.47, 233.47,
+        233.48, 233.48, 233.48, 233.48, 233.49, 233.49, 233.49, 233.49, 233.50, 233.50, 233.50, 233.50, 233.50, 233.51,
+        233.51]
 
 ThemisX = [9.01, 9.03, 9.06, 9.08, 9.10, 9.12, 9.14, 9.16, 9.18, 9.20, 9.23, 9.25, 9.27, 9.29, 9.31, 9.33, 9.35, 9.37,
            9.39, 9.41, 9.44, 9.46, 9.48, 9.50, 9.52, 9.54, 9.56, 9.58, 9.60, 9.62, 9.64, 9.66, 9.68, 9.70, 9.72, 9.74,
@@ -35,41 +35,157 @@ ThemisX = [9.01, 9.03, 9.06, 9.08, 9.10, 9.12, 9.14, 9.16, 9.18, 9.20, 9.23, 9.2
 with open("AC_H0_SWE_95692.csv", "r") as SWEPAM:
     SWEPAM_reader = csv.reader(SWEPAM)
     next(SWEPAM_reader)
+    Vx = []
+    Vswe = []
+    nswe = []
+    Tswe = []
+    time_swe = []
     for line in SWEPAM_reader:
+        t = line[0]
+        x = line[1]
+        x = float(x)
+        if abs(x) > 10 ** 10:
+            continue
+        nswe.append(x)
+        time_swe.append(t)
+
+        y = line[3]
+        y = float(y)
+        if abs(y) > 10 ** 10:
+            continue
+        Tswe.append(y)
+
+        z1 = line[4]
+        z2 = line[5]
+        z3 = line[6]
+        z1 = float(z1)
+        z2 = float(z2)
+        z3 = float(z3)
+        z = np.sqrt((z1 ** 2) + (z2 ** 2) + (z3 ** 2))
+        if z > 10 ** 10:
+            continue
+        Vswe.append(z)
+
         x = line[4]
+        x = abs(float(x))
+        if x > 6000:
+            continue
         Vx.append(x)
-    print(Vx)
 
-    listtt=[]
-
-    for i in range(len(Vx)):
-
-        num=Vx[i]
-
-        listtt.append(num)
-    listtt.translate(None, "'")
-    print(listtt)
-    print(listtt[5])
-
-    listtt = list(map(int, listtt))
-    Vx_mean = np.mean(listtt)
-    WindXMean = np.mean(AceX)
+    Vx_mean = np.mean(Vx)
+    print("mean SW velocity is (km/s):", Vx_mean)
+    Vx_mean = 540
+    AceXMean = np.mean(AceX)
     ThemisXMean = np.mean(ThemisX)
-    Delay_Time = (WindXMean-ThemisXMean) / Vx_mean
-    print(Delay_Time)
-
-
-
-
-
-
-
+    Delay_Time = (AceXMean - ThemisXMean) * 6371 / Vx_mean
+    print("Delay time is (minutes):", Delay_Time / 60)
 
 # Distance = WindXMean - ThemisXMean
 # DelayTime = Distance / 'velocity X'
 
+with open("AC_H0_MFI_95692.csv", "r") as MFI:
+    MFI_reader = csv.reader(MFI)
+    next(MFI_reader)
+    Bmfi = []
+    time_fgm = []
+    for line in MFI_reader:
+        t = line[0]
+        x = line[1]
+        x = float(x)
+        if abs(x) > 10 ** 10:
+            continue
+        Bmfi.append(x)
+        time_fgm.append(t)
 
-# fig = go.Figure(data=[go.Table(header=dict(values=['A Scores', 'B Scores']),
-#                              cells=dict(values=[[100, 90, 80, 90], [95, 85, 75, 95]]))
-#                    ])
-# fig.show()
+with open("THC_L2_FGM_89446.csv", "r") as FGM:
+    FGM_reader = csv.reader(FGM)
+    next(FGM_reader)
+    Bfgm = []
+    Bx = []
+    By = []
+    Bz = []
+    time_fgm = []
+    for line in FGM_reader:
+        t = line[0]
+        x = line[1]
+        x = float(x)
+        if abs(x) > 10 ** 10:
+            continue
+        Bfgm.append(x)
+        time_fgm.append(t)
+
+        x = line[2]
+        x = float(x)
+        if abs(x) > 10 ** 10:
+            continue
+        Bx.append(x)
+
+        x = line[3]
+        x = float(x)
+        if abs(x) > 10 ** 10:
+            continue
+        By.append(x)
+
+        x = line[4]
+        x = float(x)
+        if abs(x) > 10 ** 10:
+            continue
+        Bz.append(x)
+
+with open("THC_L2_MOM_216777.csv", "r") as MOM:
+    MOM_reader = csv.reader(MOM)
+    next(MOM_reader)
+    Vmom = []
+    nmom = []
+    Tmom = []
+    time_mom = []
+    for line in MOM_reader:
+        t = line[0]
+        x = line[1]
+        x = float(x)
+        if abs(x) > 10 ** 10:
+            continue
+        nmom.append(x)
+        time_mom.append(t)
+
+        z1 = line[5]
+        z2 = line[6]
+        z3 = line[7]
+        z1 = float(z1)
+        z2 = float(z2)
+        z3 = float(z3)
+        y = 11600 * (z1 + z2 + z3) / 3
+        if abs(y) > 1000000000000000000:
+            continue
+        Tmom.append(y)
+
+        z1 = line[2]
+        z2 = line[3]
+        z3 = line[4]
+        z1 = float(z1)
+        z2 = float(z2)
+        z3 = float(z3)
+        z = np.sqrt((z1 ** 2) + (z2 ** 2) + (z3 ** 2))
+        if z > 10 ** 10:
+            continue
+        Vmom.append(z)
+#fig1 = go.Figure(data=[go.Table(header=dict(values=["time1", 'magnetic field1', 'temperature1', 'number density1',
+ #                                                   'velocity1', ]),
+  #                              cells=dict(values=[time_swe, Bmfi, Tswe, nswe, Vswe]))
+    #                   ])
+#fig1.show()
+
+#fig2 = go.Figure(data=[go.Table(header=dict(values=["time2", 'magnetic field2', 'temperature2',
+ #                                                   'number density2', 'velocity2']),
+  #                              cells=dict(values=[time_mom, Bfgm, Tmom, nmom, Vmom]))
+   #                    ])
+#fig2.show()
+plt.plot(time_mom, Tmom)
+#plt.plot(time_mom, nmom)
+#plt.plot(time_mom, Vmom)
+#plt.plot(time_fgm, Bfgm)
+#plt.plot(time_fgm, Bx)
+#plt.plot(time_fgm, By)
+#plt.plot(time_fgm, Bz)
+plt.show()
+
