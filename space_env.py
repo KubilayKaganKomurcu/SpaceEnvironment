@@ -189,3 +189,8 @@ plt.plot(time_mom, Tmom)
 #plt.plot(time_fgm, Bz)
 plt.show()
 
+
+def dynamic_pressure(n, V):
+    mp = 1.67 * 10**(-27)
+    n = n * 10**6
+    return 0.5*n*mp*V**2
