@@ -11,8 +11,8 @@ def magnetopause_distance(n, V):
     return ((B_0 ** 2) / (nu_0 * mp * n * V ** 2)) ** (1 / 6)
 
 
-def BowShock_distance(R_mp, gamma = 5/3):
-    1.1*(gamma-1)/(gamma+1)*R_mp
+def BowShock_distance(R_mp, gamma=5/3):
+    return 1.1*(gamma-1)/(gamma+1)*R_mp
 
 
 def dynamic_pressure(n, V):
