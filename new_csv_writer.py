@@ -2,7 +2,6 @@ import csv
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 with open("AC_H0_SWE_95692.csv", "r") as SWEPAM:
     SWEPAM_reader = csv.reader(SWEPAM)
     next(SWEPAM_reader)
@@ -19,7 +18,6 @@ with open("AC_H0_SWE_95692.csv", "r") as SWEPAM:
             continue
         nswe.append(x)
         time_swe.append(t)
-
 
         y = line[3]
         y = float(y)
@@ -48,7 +46,6 @@ with open("AC_H0_SWE_95692.csv", "r") as SWEPAM:
     print(time_swe[2])
     print(time_swe[10])
 
-
 with open("AC_H0_MFI_95692.csv", "r") as MFI:
     MFI_reader = csv.reader(MFI)
     next(MFI_reader)
@@ -63,7 +60,6 @@ with open("AC_H0_MFI_95692.csv", "r") as MFI:
     fakeBzmfi = []
     for line in MFI_reader:
 
-
         x = line[1]
         x = float(x)
         if abs(x) > 10 ** 10:
@@ -73,8 +69,6 @@ with open("AC_H0_MFI_95692.csv", "r") as MFI:
             data = np.mean(fakeBmfi)
             Bmfi.append(data)
             fakeBmfi = []
-
-
 
         x1 = line[2]
         x1 = float(x1)
@@ -86,8 +80,6 @@ with open("AC_H0_MFI_95692.csv", "r") as MFI:
             Bxmfi.append(data)
             fakeBxmfi = []
 
-
-
         y1 = line[3]
         y1 = float(y1)
         if abs(y1) > 10 ** 10:
@@ -97,7 +89,6 @@ with open("AC_H0_MFI_95692.csv", "r") as MFI:
             data = np.mean(fakeBymfi)
             Bymfi.append(data)
             fakeBymfi = []
-
 
         z1 = line[4]
         z1 = float(z1)
@@ -130,7 +121,6 @@ with open("THC_L2_MOM_216777.csv", "r") as MOM:
             fakenmom = []
             nmom.append(data)
 
-
         z1 = line[5]
         z2 = line[6]
         z3 = line[7]
@@ -145,8 +135,6 @@ with open("THC_L2_MOM_216777.csv", "r") as MOM:
             data = np.mean(fakeTmom)
             Tmom.append(data)
             fakeTmom = []
-
-
 
         z1 = line[2]
         z2 = line[3]
@@ -163,7 +151,6 @@ with open("THC_L2_MOM_216777.csv", "r") as MOM:
             Vmom.append(data)
             fakeVmom = []
 
-
 with open("THC_L2_FGM_89446.csv", "r") as FGM:
     FGM_reader = csv.reader(FGM)
     next(FGM_reader)
@@ -177,7 +164,6 @@ with open("THC_L2_FGM_89446.csv", "r") as FGM:
     fakeBz = []
     for line in FGM_reader:
 
-
         x = line[1]
         x = float(x)
         if abs(x) > 10 ** 10:
@@ -187,7 +173,6 @@ with open("THC_L2_FGM_89446.csv", "r") as FGM:
             data = np.mean(fakeBfgm)
             Bfgm.append(data)
             fakeBfgm = []
-
 
         x1 = line[2]
         x1 = float(x1)
@@ -199,7 +184,6 @@ with open("THC_L2_FGM_89446.csv", "r") as FGM:
             Bx.append(data)
             fakeBx = []
 
-
         y1 = line[3]
         y1 = float(y1)
         if abs(y1) > 10 ** 10:
@@ -209,7 +193,6 @@ with open("THC_L2_FGM_89446.csv", "r") as FGM:
             data = np.mean(fakeBy)
             By.append(data)
             fakeBy = []
-
 
         z1 = line[4]
         z1 = float(z1)
@@ -222,28 +205,13 @@ with open("THC_L2_FGM_89446.csv", "r") as FGM:
             fakeBz = []
 
 with open("new_data.csv", "w") as new_file:
-
     fieldnames = ['time', 'Vswe', "Tswe", "nswe", "BmagMFI", "BxMFI", "ByMFI",
-            "BzMFI", "Vmom", "Tmom", "nmom", "BmagFGM", "BxFGM", "ByFGM", "BzFGM"]
+                  "BzMFI", "Vmom", "Tmom", "nmom", "BmagFGM", "BxFGM", "ByFGM", "BzFGM"]
 
     writer = csv.DictWriter(new_file, fieldnames=fieldnames)
     writer.writeheader()
-    print(len(time_swe))
-    print(len(Vswe))
-    print(len(Tswe))
-    print(len(nswe))
-    print(len(Tmom))
-    print(len(Vmom))
-    print(len(nmom))
-    print(len(Bx))
-    print(len(By))
-    print(len(Bz))
-    print(len(Bmfi))
-    print(len(Bxmfi))
-    print(len(Bymfi))
-    print(len(Bzmfi))
 
     for i in range(len(Vswe)):
         writer.writerow({'time': time_swe[i], 'Vswe': Vswe[i], "Tswe": Tswe[i], "nswe": nswe[i], "BmagMFI": Bmfi[i],
-                         "BxMFI": Bxmfi[i],"ByMFI": Bymfi[i],"BzMFI": Bzmfi[i], "Vmom": Vmom[i], "Tmom": Tmom[i],
+                         "BxMFI": Bxmfi[i], "ByMFI": Bymfi[i], "BzMFI": Bzmfi[i], "Vmom": Vmom[i], "Tmom": Tmom[i],
                          "nmom": nmom[i], "BmagFGM": Bfgm[i], "BxFGM": Bx[i], "ByFGM": By[i], "BzFGM": Bz[i]})
