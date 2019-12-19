@@ -3,7 +3,6 @@ import numpy as np
 import plotly.graph_objects as go
 import csv
 
-Vx = []
 AceX = [233.44, 233.45, 233.45, 233.45, 233.45, 233.46, 233.46, 233.46, 233.46, 233.46, 233.47, 233.47, 233.47, 233.47,
         233.48, 233.48, 233.48, 233.48, 233.49, 233.49, 233.49, 233.49, 233.50, 233.50, 233.50, 233.50, 233.50, 233.51,
         233.51]
@@ -80,8 +79,7 @@ with open("AC_H0_SWE_95692.csv", "r") as SWEPAM:
     Delay_Time = (AceXMean - ThemisXMean) * 6371 / Vx_mean
     print("Delay time is (minutes):", Delay_Time / 60)
 
-# Distance = WindXMean - ThemisXMean
-# DelayTime = Distance / 'velocity X'
+
 
 with open("AC_H0_MFI_95692.csv", "r") as MFI:
     MFI_reader = csv.reader(MFI)
@@ -154,8 +152,8 @@ with open("THC_L2_MOM_216777.csv", "r") as MOM:
         z1 = float(z1)
         z2 = float(z2)
         z3 = float(z3)
-        y = 11600 * (z1 + z2 + z3) / 3
-        if abs(y) > 1000000000000000000:
+        y = 11600 * np.sqrt((z1 ** 2) + (z2 ** 2) + (z3 ** 2))
+        if abs(y) > 10 ** 31:
             continue
         Tmom.append(y)
 
@@ -172,22 +170,22 @@ with open("THC_L2_MOM_216777.csv", "r") as MOM:
 #fig1 = go.Figure(data=[go.Table(header=dict(values=["time1", 'magnetic field1', 'temperature1', 'number density1',
  #                                                   'velocity1', ]),
   #                              cells=dict(values=[time_swe, Bmfi, Tswe, nswe, Vswe]))
-    #                   ])
+   #                    ])
 #fig1.show()
 
 #fig2 = go.Figure(data=[go.Table(header=dict(values=["time2", 'magnetic field2', 'temperature2',
- #                                                   'number density2', 'velocity2']),
-  #                              cells=dict(values=[time_mom, Bfgm, Tmom, nmom, Vmom]))
-   #                    ])
+   #                                                 'number density2', 'velocity2']),
+    #                            cells=dict(values=[time_mom, Bfgm, Tmom, nmom, Vmom]))
+     #                  ])
 #fig2.show()
-plt.plot(time_mom, Tmom)
+#plt.plot(time_mom, Tmom)
 #plt.plot(time_mom, nmom)
 #plt.plot(time_mom, Vmom)
 #plt.plot(time_fgm, Bfgm)
 #plt.plot(time_fgm, Bx)
 #plt.plot(time_fgm, By)
 #plt.plot(time_fgm, Bz)
-plt.show()
+#plt.show()
 
 
 def dynamic_pressure(n, V):
