@@ -7,6 +7,10 @@ import csv
 with open("new_data.csv", "r") as Big_data:
     Big_data_reader = csv.reader(Big_data)
 
+
+
+
+
     Vswe = []
     Tswe = []
     nswe = []
