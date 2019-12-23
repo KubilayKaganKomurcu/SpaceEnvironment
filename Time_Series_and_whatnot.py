@@ -98,7 +98,8 @@ BzFGM
 
 
 '''
-data = pd.read_csv('sheath.csv', header=0)
+data = pd.read_csv('sheath.csv', )
+distances = pd.read_csv("distances.csv",)
 
 print('meanVswe:  ', np.mean(data.Vswe))
 print('meanTswe:  ', np.mean(data.Tswe))
@@ -144,3 +145,10 @@ print('maxBmagFGM: ', np.max(data.BmagFGM))
 print('maxBxFGM: ', np.max(data.BxFGM))
 print('maxByFGM: ', np.max(data.ByFGM))
 print('maxBzFGM: ', np.max(data.BzFGM))
+
+
+#data["MPAUSEdistance"] = distances["MPAUSEdistance"]
+#data["BowShockDistance"] = distances["BowShockDistance"]
+#data["DynamicPressure"] = distances["DynamicPressure"]
+#print(data.head(5))
+#data.to_csv("Table_1.csv")
