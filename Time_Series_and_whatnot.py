@@ -147,8 +147,8 @@ print('maxByFGM: ', np.max(data.ByFGM))
 print('maxBzFGM: ', np.max(data.BzFGM))
 
 
-#data["MPAUSEdistance"] = distances["MPAUSEdistance"]
-#data["BowShockDistance"] = distances["BowShockDistance"]
-#data["DynamicPressure"] = distances["DynamicPressure"]
-#print(data.head(5))
-#data.to_csv("Table_1.csv")
+data["MPAUSEdistance"] = distances["MPAUSEdistance"]
+data["BowShockDistance"] = distances["BowShockDistance"]
+data["DynamicPressure"] = distances["DynamicPressure"]
+print(data.head(5))
+data.to_csv("Table_1.csv")
