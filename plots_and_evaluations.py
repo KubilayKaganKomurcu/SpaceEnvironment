@@ -43,7 +43,7 @@ data = pd.read_csv('Table_1.csv',)
 data1 = pd.read_csv('data1.csv',)
 data2 = pd.read_csv('data2.csv',)
 
-"""
+
 print('meanPdyn:  ', np.mean(data.DynamicPressure))
 print('meanVswe:  ', np.mean(data.Vswe))
 print('meannswe:  ', np.mean(data.nswe))
@@ -66,7 +66,8 @@ print('maxnswe:  ', np.max(data.nswe))
 print('maxBmagMFI:  ', np.max(data.BmagMFI))
 print('maxBzMFI:  ', np.max(data.BzMFI))
 print('max_d_MPAUSE:  ', np.max(data.MPAUSEdistance))
-print('max_d_BSHOCK:  ', np.max(data.BowShockDistance))"""
+print('max_d_BSHOCK:  ', np.max(data.BowShockDistance))
+"""
 
 
 
@@ -77,6 +78,6 @@ fig1.show()
 
 fig2 = px.line(data2, x = 'MPAUSEdistance(Re)', y = 'DynamicPressure(nT)', title='MP vs Pdyn')
 
-fig2.show()
+fig2.show()"""
 
 

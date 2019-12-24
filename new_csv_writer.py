@@ -204,7 +204,7 @@ with open("THC_L2_FGM_89446.csv", "r") as FGM:
             Bz.append(data)
             fakeBz = []
 
-with open("new_data.csv", "w") as new_file:
+with open("new_data.csv", "w", newline='') as new_file:
     fieldnames = ['time', 'Vswe', "Tswe", "nswe", "BmagMFI", "BxMFI", "ByMFI",
                   "BzMFI", "Vmom", "Tmom", "nmom", "BmagFGM", "BxFGM", "ByFGM", "BzFGM"]
 

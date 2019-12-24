@@ -6,55 +6,54 @@ from matplotlib.ticker import (MultipleLocator, FormatStrFormatter, AutoMinorLoc
                                IndexFormatter, LinearLocator, FixedFormatter)
 import csv
 
-# data = pd.read_csv('new_data.csv', header=0)
+data = pd.read_csv('new_data.csv', header=0)
 
+data['time'] = pd.to_datetime(data['time'], yearfirst = True)
 
 '''
-data['time'] = pd.to_datetime(data['time'], yearfirst = True)
 print(data.Vswe.dtype)
 fig, axes = plt.subplots(nrows=7, ncols=1, sharex=True)
 axes[0].set_title('ACE')
-data.groupby(data.time.dt.hour).Vswe.plot(ax=axes[0])
-data.groupby(data.time.dt.hour).Tswe.plot(ax=axes[1])
-data.groupby(data.time.dt.hour).nswe.plot(ax=axes[2])
-data.groupby(data.time.dt.hour).BmagMFI.plot(ax=axes[3])
-data.groupby(data.time.dt.hour).BxMFI.plot(ax=axes[4])
-data.groupby(data.time.dt.hour).ByMFI.plot(ax=axes[5])
-data.groupby(data.time.dt.hour).BzMFI.plot(ax=axes[6])
+axes[0].plot(data['time'], data['Vswe'])
+axes[1].plot(data['time'], data['Tswe'])
+axes[2].plot(data['time'], data['nswe'])
+axes[3].plot(data['time'], data['BmagMFI'])
+axes[4].plot(data['time'], data['BxMFI'])
+axes[5].plot(data['time'], data['ByMFI'])
+axes[6].plot(data['time'], data['BzMFI'])
+
 axes[0].set(ylabel='Vtot (km/s)')
 axes[1].set(ylabel='T (K)')
 axes[2].set(ylabel='n (cm^(-3))')
 axes[3].set(ylabel='Btot (nT)')
 axes[4].set(ylabel='Bx (nT)')
 axes[5].set(ylabel='By (nT)')
-axes[6].set(ylabel='Bz (nT)')
+axes[6].set(ylabel='Bz (nT)', xlabel='TIME')
 
 for ax in axes.flat:
-    timelist = ['20.00', '21.00', '22.00', '23.00', '00.00', '01.00']
     ax.yaxis.set_major_locator(AutoLocator())
     ax.yaxis.set_minor_locator(AutoMinorLocator())
     ax.yaxis.set_major_formatter(FormatStrFormatter('%d'))
     ax.yaxis.set_minor_formatter(NullFormatter())
-    ax.xaxis.set_major_locator(LinearLocator(6))
     ax.xaxis.set_minor_locator(AutoMinorLocator())
-    ax.xaxis.set_major_formatter(FixedFormatter(timelist))
     ax.xaxis.set_minor_formatter(NullFormatter())
-    ax.set(xlabel='TIME')
 
 
-plt.show()'''
 
-'''
+plt.show()
+
+
+
 fig, axes = plt.subplots(nrows=7, ncols=1, sharex=True)
 axes[0].set_title('THEMIS-C')
 
-data.groupby(data.time.dt.hour).Vmom.plot(ax=axes[0])
-data.groupby(data.time.dt.hour).Tmom.plot(ax=axes[1])
-data.groupby(data.time.dt.hour).nmom.plot(ax=axes[2])
-data.groupby(data.time.dt.hour).BmagFGM.plot(ax=axes[3])
-data.groupby(data.time.dt.hour).BxFGM.plot(ax=axes[4])
-data.groupby(data.time.dt.hour).ByFGM.plot(ax=axes[5])
-data.groupby(data.time.dt.hour).BzFGM.plot(ax=axes[6])
+axes[0].plot(data['time'], data['Vmom'])
+axes[1].plot(data['time'], data['Tmom'])
+axes[2].plot(data['time'], data['nmom'])
+axes[3].plot(data['time'], data['BmagFGM'])
+axes[4].plot(data['time'], data['BxFGM'])
+axes[5].plot(data['time'], data['ByFGM'])
+axes[6].plot(data['time'], data['BzFGM'])
 
 axes[0].set(ylabel='Vtot (km/s)')
 axes[1].set(ylabel='T (K)')
@@ -64,19 +63,25 @@ axes[4].set(ylabel='Bx (nT)')
 axes[5].set(ylabel='By (nT)')
 axes[6].set(ylabel='Bz (nT)')
 
-timelist = ['20.00', '21.00', '22.00', '23.00', '00.00', '01.00']
+
 
 for ax in axes.flat:
     ax.yaxis.set_major_locator(AutoLocator())
     ax.yaxis.set_minor_locator(AutoMinorLocator())
+
+
     ax.yaxis.set_major_formatter(FormatStrFormatter('%d'))
     ax.yaxis.set_minor_formatter(NullFormatter())
-    ax.xaxis.set_major_locator(LinearLocator(6))
+
+
     ax.xaxis.set_minor_locator(AutoMinorLocator())
-    ax.xaxis.set_major_formatter(FixedFormatter(timelist))
+   # ax.xaxis.set_major_formatter(FormatStrFormatter('%d'))
     ax.xaxis.set_minor_formatter(NullFormatter())
     ax.set(xlabel='TIME')
+    
+
 plt.show()
+
 
 
 time
@@ -97,8 +102,8 @@ BzFGM
 
 
 
-'''
-data = pd.read_csv('sheath.csv', )
+
+data = pd.read_csv('solar_wind.csv', )
 distances = pd.read_csv("distances.csv",)
 
 print('meanVswe:  ', np.mean(data.Vswe))
@@ -115,6 +120,7 @@ print('meanBmagFGM:  ', np.mean(data.BmagFGM))
 print('meanBxFGM:  ', np.mean(data.BxFGM))
 print('meanByFGM:  ', np.mean(data.ByFGM))
 print('meanBzFGM:  ', np.mean(data.BzFGM))
+print('')
 
 print('minVswe:  ', np.min(data.Vswe))
 print('minTswe:  ', np.min(data.Tswe))
@@ -130,7 +136,7 @@ print('minBmagFGM:  ', np.min(data.BmagFGM))
 print('minBxFGM:  ', np.min(data.BxFGM))
 print('minByFGM:  ', np.min(data.ByFGM))
 print('minBzFGM:  ', np.min(data.BzFGM))
-
+print('')
 print('maxVswe: ', np.max(data.Vswe))
 print('maxTswe: ', np.max(data.Tswe))
 print('maxnswe: ', np.max(data.nswe))
@@ -146,9 +152,8 @@ print('maxBxFGM: ', np.max(data.BxFGM))
 print('maxByFGM: ', np.max(data.ByFGM))
 print('maxBzFGM: ', np.max(data.BzFGM))
 
-
 data["MPAUSEdistance"] = distances["MPAUSEdistance"]
 data["BowShockDistance"] = distances["BowShockDistance"]
 data["DynamicPressure"] = distances["DynamicPressure"]
-print(data.head(5))
-data.to_csv("Table_1.csv")
+data.to_csv("Table_1.csv", index=False)'''
+#data.to_excel("Table_1.xlsx", index=False)

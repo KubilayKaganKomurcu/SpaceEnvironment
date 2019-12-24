@@ -63,7 +63,7 @@ with open("new_data.csv", "r") as GrandData:
         P_dyn = dynamic_pressure(n, V)
         list_P_dyn.append(P_dyn)
 
-with open("distances.csv", "w") as new_file:
+with open("distances.csv", "w", newline='') as new_file:
     fieldnames = ['MPAUSEdistance', 'BowShockDistance', "DynamicPressure"]
 
     writer = csv.DictWriter(new_file, fieldnames=fieldnames)
