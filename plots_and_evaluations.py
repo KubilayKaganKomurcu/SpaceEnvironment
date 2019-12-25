@@ -32,12 +32,17 @@ def dynamic_pressure(n, V):
     mp = 1.67 * 10 ** (-27)
     n = n * 10 ** 6
     V = V * 1000
-    return (2 * n * mp * V ** 2) * 10**9 # nanoTesla
+    return (2 * n * mp * V ** 2) * 10**9 # nanoPascal
 
 
 def eV_to_Kelvin(Temperature):
     return Temperature * 11600
 
+
+def Auroral_Latitude(d_Mpause):
+    return np.rad2deg(np.arccos(1/np.sqrt(d_Mpause)))
+
+"""
 
 data = pd.read_csv('Table_1.csv',)
 data1 = pd.read_csv('data1.csv',)
@@ -67,7 +72,7 @@ print('maxBmagMFI:  ', np.max(data.BmagMFI))
 print('maxBzMFI:  ', np.max(data.BzMFI))
 print('max_d_MPAUSE:  ', np.max(data.MPAUSEdistance))
 print('max_d_BSHOCK:  ', np.max(data.BowShockDistance))
-"""
+
 
 
 
